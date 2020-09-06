@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolithic_SinglePage", "Monolithic_SinglePage\Monolithic_SinglePage.csproj", "{900B57A7-4170-4D5C-95E5-3F05E86DFB87}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB_Query", "DB_Query", "{02EF99E5-4F01-4E40-943B-DAA281FC7DDF}"
+	ProjectSection(SolutionItems) = preProject
+		SqlQuery_1.sql = SqlQuery_1.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
