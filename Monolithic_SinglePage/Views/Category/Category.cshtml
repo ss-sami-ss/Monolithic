@@ -1,0 +1,113 @@
+﻿@model Monolithic_SinglePage.Models.ViewModel.CategoryViewModel
+@{
+    ViewBag.Title = "Category";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" charset="UTF-8"/>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container-fluid">
+        <h3>Category Sakhtam </h3>
+        <p>¯\_(ツ)_/¯</p>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            {
+                <div class="row form-group-sm" id="toolbar">
+                    <div class="col-sm-1"></div>
+                    <div><input class="btn btn-success col-sm-2" tye="button" name="saveButton" id="btnSave" value="Save" /></div>
+                    <div class="col-sm-1"></div>
+                    <div><input class="btn btn-warning col-sm-2" tye="button" name="editButton" id="btnEdit" value="Edit" /></div>
+                    <div class="col-sm-1"></div>
+                    <div><input class="btn btn-danger col-sm-2" tye="button" name="deleteButton" id="btnDelete" value="Delete" /></div>
+                    <div class="col-sm-1"></div>
+                    <div><input class="btn btn-info" col-sm-2" tye="button" name="refreshButton" id="btnRefresh" value="Refresh" /></div>
+                    <div class="col-sm-1"></div>
+                </div>
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Code, new { @id = "code", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { @id = "title", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            }
+
+        }
+
+
+    </div>
+
+
+
+    @*_______________________________JavaScript___________________________________*@ 
+    <script type="text/javascript">
+        //-------------Save------------
+        $("#btnSave").click(function () {
+            alert("Save Data")
+            var ref_Category = {};
+            ref_Category.Code  = $("#code").val();
+            ref_Category.Title = $("#title").val();
+            alert("ref_Category.Code=" + ref_Category.Code);
+            alert("ref_Category.title" + ref_Category.Title);
+
+            $.ajax({method: "post", url: "Category/Categoy/", ref_Category : ref_Category})
+        })
+
+
+
+        
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+
+
+</html>
