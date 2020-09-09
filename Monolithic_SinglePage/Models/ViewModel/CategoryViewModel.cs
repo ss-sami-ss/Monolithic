@@ -22,7 +22,8 @@ namespace Monolithic_SinglePage.Models.ViewModel
         #region [- Props For Class -]
 
         public CategoryRepository Ref_CategoryRepository { get; set; }
-      
+        
+
 
         #endregion
 
@@ -39,8 +40,8 @@ namespace Monolithic_SinglePage.Models.ViewModel
         #region [- Get_Category() -]
         public List<Category> Get_Category()
         {
-            var q = Ref_CategoryRepository.SelectAll();
-            return q;
+            var categories = Ref_CategoryRepository.SelectAll();
+            return categories;
         }
         #endregion
 
@@ -48,8 +49,8 @@ namespace Monolithic_SinglePage.Models.ViewModel
         public void Post_Category(CategoryViewModel ref_CategoryViewModel)
         {
             Category ref_Category = new Category();
-            ref_CategoryViewModel.Code = ref_Category.Code;
-            ref_CategoryViewModel.Title = ref_Category.Title;
+            ref_Category.Code = ref_CategoryViewModel.Code;
+            ref_Category.Title = ref_CategoryViewModel.Title;
             Ref_CategoryRepository.InsertInto(ref_Category);
         }
         #endregion
@@ -57,11 +58,11 @@ namespace Monolithic_SinglePage.Models.ViewModel
         #region [- Find_Category(int? id) -]
         public CategoryViewModel Find_Category(int? id)
         {
-            var ref_Category = Ref_CategoryRepository.FindCategory(id);
+            var ref_category = Ref_CategoryRepository.FindCategory(id);
             CategoryViewModel ref_CategoryViewModel = new CategoryViewModel();
-            ref_CategoryViewModel.Id = ref_Category.Id;
-            ref_CategoryViewModel.Code = ref_Category.Code;
-            ref_CategoryViewModel.Title = ref_Category.Title;
+            ref_CategoryViewModel.Id = ref_category.Id;
+            ref_CategoryViewModel.Code = ref_category.Code;
+            ref_CategoryViewModel.Title = ref_category.Title;
             return ref_CategoryViewModel;
         }
         #endregion

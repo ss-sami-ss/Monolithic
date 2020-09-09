@@ -5,26 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using Monolithic_SinglePage.Models.ViewModel;
 
-
 namespace Monolithic_SinglePage.Controllers
 {
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         #region [- ctor -]
-        public CategoryController()
+        public ProductController()
         {
-            Ref_CategoryViewModel = new CategoryViewModel();
+            Ref_ProductViewModel = new ProductViewModel();
         }
         #endregion
 
         #region [- Props -]
-        public CategoryViewModel Ref_CategoryViewModel { get;private set; }
+        public ProductViewModel Ref_ProductViewModel { get; private set; }
         #endregion
 
-        #region [- Category() -]
-        public ActionResult Category()
+        #region [- Product() -]
+        public ActionResult Product()
         {
-            return View(Ref_CategoryViewModel);
+            return View(Ref_ProductViewModel);
         }
         #endregion
 
@@ -33,19 +32,19 @@ namespace Monolithic_SinglePage.Controllers
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [Route("Create")]
-        public ActionResult Create(CategoryViewModel     ref_CategoryViewModel)
+        public ActionResult Create(ProductViewModel ref_ProductViewModel)
         {
             if (ModelState.IsValid)
             {
-                ref_CategoryViewModel.Post_Category(ref_CategoryViewModel);
-                return Json(new { success=true, message = "Success" }, JsonRequestBehavior.AllowGet);
+                ref_ProductViewModel.Post_Product(ref_ProductViewModel);
+                return Json(new { success = true, message = "Success" }, JsonRequestBehavior.AllowGet);
 
             }
             else
             {
                 return Json(new { ModelState_IsValid = "False" }, JsonRequestBehavior.AllowGet);
             }
-        } 
+        }
         #endregion
     }
 }

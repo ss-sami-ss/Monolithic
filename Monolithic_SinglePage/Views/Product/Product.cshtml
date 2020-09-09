@@ -1,8 +1,7 @@
-﻿@model Monolithic_SinglePage.Models.ViewModel.CategoryViewModel
+﻿@model Monolithic_SinglePage.Models.ViewModel.ProductViewModel
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = "Product";
     Layout = null;
-
 }
 
 <!DOCTYPE html>
@@ -20,7 +19,7 @@
 <body>
 
     <div class="container-fluid">
-        <h3>Category Sakhtam </h3>
+        <h3>Product Sakhtam </h3>
         <p>¯\_(ツ)_/¯</p>
         <hr />
         @using (Html.BeginForm())
@@ -69,6 +68,33 @@
 
                 </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryRef, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.CategoryRef, new { id = "categoryref", HtmlAttribute = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CategoryRef, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Quantity, new { id = "quantity", HtmlAttribute = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UnitPrice, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.UnitPrice, new { id = "unitprice", HtmlAttribute = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
 
             </div>
         }
@@ -87,10 +113,19 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryRef)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
                 <th></th>
             </tr>
 
-            @foreach (var item in Model.Get_Category())
+            @foreach (var item in Model.Get_Product())
             {
                 <tr>
                     <td>
@@ -105,6 +140,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryRef)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
+                    
 
                 </tr>
             }
@@ -119,36 +164,32 @@
 
 
     @*_______________________________JavaScript___________________________________*@
-    <script type="text/javascript">
-    //-------------Save------------
-   
 
-        $("#btnSave").click(function () {
-            ref_CategoryViewModel = { Code: $('#code').val(), Title: $('#title').val() };
-            alert("Code" + ref_CategoryViewModel.Code)
-            $.ajax({
-                url: "/Category/Category",
-                data: Json.stringify(ref_CategoryViewModel),
-                type: "Post",
-                contentType: "application/json;charset=utf-8",
-                success: function (result) {
+<script type="text/javascript">
+    $("#btnSave").click(function () {
+        ref_ProductViewModel = {
+            Code: $("#code"), Title: $("#title"),
+            CategoryRef: $("#categoryref"), Quantity: $("#quantity"),
+            UnitPrice: $("#unitprice"),
+        };
 
-                    alert("success"); 
-                    location.reload();
-                },
-                error: function (errormessage) {
-                    alert(errormessage.responseText);
-
-                }
-
-
-             });
-
+        $.ajax({
+            url: "Product/Product",
+            data: JSON.stringify(ref_ProductViewModel),
+            type: "POST",
+            contentType:"json"
 
 
         })
 
-            
+
+    })
+
+
+
+
+
+</script>
 
 
 
@@ -156,16 +197,10 @@
 
 
 
-
-
-
-
-
-
-    </script>
 
 
 </body>
 
 
 </html>
+
