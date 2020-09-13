@@ -29,20 +29,20 @@ namespace Monolithic_SinglePage.Controllers
 
         #region [- Create -]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [AllowAnonymous]
-        [Route("Create")]
+        //[Route("Create")]
         public ActionResult Create(ProductViewModel ref_ProductViewModel)
         {
             if (ModelState.IsValid)
             {
-                ref_ProductViewModel.Post_Product(ref_ProductViewModel);
-                return Json(new { success = true, message = "Success" }, JsonRequestBehavior.AllowGet);
+                Ref_ProductViewModel.Post_Product(ref_ProductViewModel);
+                return Json(new { Message = "Success" }, JsonRequestBehavior.AllowGet);
 
             }
             else
             {
-                return Json(new { ModelState_IsValid = "False" }, JsonRequestBehavior.AllowGet);
+                return Json(new { ModelState_IsValid = "False", JsonRequestBehavior.AllowGet });
             }
         }
         #endregion

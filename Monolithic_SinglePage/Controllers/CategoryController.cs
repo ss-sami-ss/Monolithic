@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using Monolithic_SinglePage.Models.ViewModel;
+
 
 
 namespace Monolithic_SinglePage.Controllers
@@ -30,20 +32,20 @@ namespace Monolithic_SinglePage.Controllers
 
         #region [- Create -]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        [Route("Create")]
+        //[Route("Create")]
         public ActionResult Create(CategoryViewModel     ref_CategoryViewModel)
         {
             if (ModelState.IsValid)
             {
-                ref_CategoryViewModel.Post_Category(ref_CategoryViewModel);
-                return Json(new { success=true, message = "Success" }, JsonRequestBehavior.AllowGet);
+                Ref_CategoryViewModel.Post_Category(ref_CategoryViewModel);
+                return Json(new {Message = "Success" }, JsonRequestBehavior.AllowGet);
 
             }
             else
             {
-                return Json(new { ModelState_IsValid = "False" }, JsonRequestBehavior.AllowGet);
+                return Json(new { ModelState_IsValid="False"  , JsonRequestBehavior.AllowGet });
             }
         } 
         #endregion

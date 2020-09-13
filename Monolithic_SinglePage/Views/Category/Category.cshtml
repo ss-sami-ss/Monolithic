@@ -9,11 +9,14 @@
 <html>
 <head>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
 
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/ico" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
 
 
 </head>
@@ -52,7 +55,7 @@
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Code, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
@@ -61,7 +64,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
@@ -73,11 +76,9 @@
             </div>
         }
 
-        <table class="table">
+        <table id="Category_Grid"   class="table" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
             <tr>
-                <th>
-                    <input type="checkbox" disabled="disabled" name="Category_Table" value="Device">
-                </th>
+              
                 <th>
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
@@ -93,9 +94,7 @@
             @foreach (var item in Model.Get_Category())
             {
                 <tr>
-                    <td>
-                        <input type="checkbox" value="select">
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
@@ -120,33 +119,32 @@
 
     @*_______________________________JavaScript___________________________________*@
     <script type="text/javascript">
-    //-------------Save------------
-   
+        //-------------Save------------//
+       
 
-        $("#btnSave").click(function () {
-            ref_CategoryViewModel = { Code: $('#code').val(), Title: $('#title').val() };
-            alert("Code" + ref_CategoryViewModel.Code)
-            $.ajax({
-                url: "/Category/Category",
-                data: Json.stringify(ref_CategoryViewModel),
-                type: "Post",
-                contentType: "application/json;charset=utf-8",
-                success: function (result) {
-
-                    alert("success"); 
-                    location.reload();
-                },
-                error: function (errormessage) {
-                    alert(errormessage.responseText);
-
-                }
-
-
-             });
+            $("#btnSave").click(function () {
+                let ref_CategoryViewModel = {Code: $('#code').val(), Title: $('#title').val()};
+                console.log("Code" + ref_CategoryViewModel.Code);
+                $.ajax({
+                    url: "/Category/Create",
+                    data: JSON.stringify( ref_CategoryViewModel),
+                    type: "POST",
+                    contentType: "application/jsonn;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log("success");
+                        location.reload();
+                    },
+                    error: function (errormessage) {
+                        console.log(errormessage.responseText);
+                    }
+           
+                });
 
 
 
-        })
+            })
+        
 
             
 
