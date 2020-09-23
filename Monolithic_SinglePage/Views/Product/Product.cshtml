@@ -10,186 +10,205 @@
 
     <meta name="viewport" content="width=device-width" charset="UTF-8" />
 
-   
+
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <link href="~/Content/CSS/Index.css" rel="stylesheet" />
 
 </head>
 <body>
+    <div class="bg">
 
-    <div class="container-fluid">
-        <h3>Product Sakhtam </h3>
-        <p>¯\_(ツ)_/¯</p>
-        <hr />
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+        <p class="py-5 text-center">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
 
-            <div class="row form-group-sm" id="toolbar">
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-success col-sm-2" type="button" name="saveButton" id="btnSave" value="Save" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-warning col-sm-2" type="button" name="editButton" id="btnEdit" value="Edit" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-danger col-sm-2" type="button" name="deleteButton" id="btnDelete" value="Delete" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-info col-sm-2" type="button" name="refreshButton" id="btnRefresh" value="Refresh" />
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
-
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Code,htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CategoryRef, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.CategoryRef, new { id = "categoryref", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CategoryRef, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Quantity, new { id = "quantity", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.UnitPrice, new { id = "unitprice", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-
-            </div>
-        }
-
-        <table class="table">
-            <tr>
-                <th>
-                    <input type="checkbox" disabled="disabled" name="Category_Table" value="Device">
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Code)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CategoryRef)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UnitPrice)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.Get_Product())
+        <div class="container-fluid">
+            <h3>Product Sakhtam </h3>
+            <p>¯\_(ツ)_/¯</p>
+            <hr />
+            @using (Html.BeginForm())
             {
-                <tr>
-                    <td>
-                        <input type="checkbox" value="select">
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Code)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CategoryRef)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UnitPrice)
-                    </td>
-                    
+                @Html.AntiForgeryToken()
 
-                </tr>
+                <div class="row form-group-sm" id="toolbar">
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-success col-sm-1" name="saveButton" id="btnSave">Save</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-primary col-sm-1" name="editButton" id="btnEdit">Edit</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-danger col-sm-1" name="deleteButton" id="btnDelete">Delete</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-dark col-sm-1" name="refreshButton" id="btnRefresh">Refresh</button>
+                    <div class="col-sm-1"></div>
+                    <span class="badge badge-pill badge-warning col-sm-2">Saman</span>
+                    <div class="col-sm-1"></div>
+                </div>
+
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CategoryRef, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.CategoryRef, new { id = "categoryref", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryRef, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Quantity, new { id = "quantity", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.UnitPrice, new { id = "unitprice", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+                </div>
             }
 
-        </table>
+            <table class="table">
+                <tr>
+                    <th>
+                        <input type="checkbox" disabled="disabled" name="Product_Table" value="Device">
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryRef)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UnitPrice)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Get_Product())
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="select">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryRef)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+
+
+                    </tr>
+                }
+
+            </table>
 
 
 
 
+        </div>
     </div>
 
 
 
-    @*_______________________________JavaScript___________________________________*@
+        @*_______________________________JavaScript___________________________________*@
 
-<script type="text/javascript">
-    $("#btnSave").click(function () {
-        ref_ProductViewModel = {
-            Code: $("#code"), Title: $("#title"),
-            CategoryRef: $("#categoryref"), Quantity: $("#quantity"),
-            UnitPrice: $("#unitprice"),
-        };
+        <script type="text/javascript">
+            $("#btnSave").click(function () {
+                ref_ProductViewModel = {
+                    Code: $("#code"), Title: $("#title"),
+                    CategoryRef: $("#categoryref"), Quantity: $("#quantity"),
+                    UnitPrice: $("#unitprice"),
+                };
 
-        $.ajax({
-            url: "Product/Product",
-            data: JSON.stringify(ref_ProductViewModel),
-            type: "POST",
-            contentType:"json"
-
-
-        })
+                $.ajax({
+                    url: "Product/Product",
+                    data: JSON.stringify(ref_ProductViewModel),
+                    type: "POST",
+                    contentType: "json"
 
 
-    })
+                })
+
+
+            })
+
+            //--------------------DropDown-----------------//
+            var obj, dbParam, xmlhttp, myObj, x, txt = "";
+            obj = { table: "Category_Table", limit: 20 };
+            dbParam = JSON.stringify(obj);
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    myObj = JSON.parse(this.responseText);
+                    txt += "<select>"
+                    for (x in myObj) {
+                        txt += "<option>" + myObj[x].name;
+                    }
+                    txt += "</select>"
+                    document.getElementById("demo").innerHTML = txt;
+                }
+            };
+            xmlhttp.open("POST", "json_demo_html_table.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("x=" + dbParam);
 
 
 
 
 
-</script>
+        </script>
 
 
 

@@ -11,107 +11,114 @@
 
     <meta name="viewport" content="width=device-width" />
 
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/CSS/Index.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.5.1.js"></script>
-    <link rel="icon" href="favicon.ico" type="image/ico" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
 
 
 
 </head>
 <body>
 
-    <div class="container-fluid">
-        <h3>Category Sakhtam </h3>
-        <p>¯\_(ツ)_/¯</p>
-        <hr />
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    <div class="bg">
 
-            <div class="row form-group-sm" id="toolbar">
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-success col-sm-2" type="button" name="saveButton" id="btnSave" value="Save" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-warning col-sm-2" type="button" name="editButton" id="btnEdit" value="Edit" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-danger col-sm-2" type="button" name="deleteButton" id="btnDelete" value="Delete" />
-                </div>
-                <div class="col-sm-1"></div>
-                <div>
-                    <input class="btn btn-info col-sm-2" type="button" name="refreshButton" id="btnRefresh" value="Refresh" />
-                </div>
-                <div class="col-sm-1"></div>
-            </div>
-
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
+        <p class="py-5 text-center">This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
 
 
-            </div>
-        }
-
-        <table id="Category_Grid"   class="table" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
-            <tr>
-              
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Code)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.Get_Category())
+        <div class="container-fluid">
+            <h3>Category Sakhtam </h3>
+            <p>¯\_(ツ)_/¯</p>
+            <hr />
+            @using (Html.BeginForm())
             {
-                <tr>
+                @Html.AntiForgeryToken()
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Code)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
+                <div class="row form-group-sm" id="toolbar">
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-success col-sm-1" name="saveButton" id="btnSave">Save</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-primary col-sm-1" name="editButton" id="btnEdit">Edit</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-danger col-sm-1" name="deleteButton" id="btnDelete">Delete</button>
+                    <div class="col-sm-1"></div>
+                    <button type="button" class="btn btn-outline-dark col-sm-1" name="refreshButton" id="btnRefresh">Refresh</button>
+                    <div class="col-sm-1"></div>
+                    <span class="badge badge-pill badge-warning col-sm-2">Saman</span>
+                    <div class="col-sm-1"></div>
+                </div>
 
-                </tr>
+                <div class="form-horizontal">
+                    <hr />
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white " })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white " })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+                </div>
             }
 
-        </table>
+            <table id="Category_Table" class="table table-striped table-dark" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+                <thead>
+                    <tr>
+
+                        <th style="display:none;">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Code)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Get_Category())
+                    {
+
+                        <tr>
+
+                            <td style="display:none;">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
 
 
 
+
+        </div>
 
     </div>
 
@@ -119,47 +126,112 @@
 
     @*_______________________________JavaScript___________________________________*@
     <script type="text/javascript">
+
+
+
         //-------------Save------------//
-       
 
-            $("#btnSave").click(function () {
-                let ref_CategoryViewModel = {Code: $('#code').val(), Title: $('#title').val()};
-                console.log("Code" + ref_CategoryViewModel.Code);
-                $.ajax({
-                    url: "/Category/Create",
-                    data: JSON.stringify( ref_CategoryViewModel),
-                    type: "POST",
-                    contentType: "application/jsonn;charset=utf-8",
-                    dataType: "json",
-                    success: function (result) {
-                        console.log("success");
-                        location.reload();
-                    },
-                    error: function (errormessage) {
-                        console.log(errormessage.responseText);
+
+        $("#btnSave").click(function () {
+            let ref_CategoryViewModel = { Code: $('#code').val(), Title: $('#title').val() };
+            console.log("Code" + ref_CategoryViewModel.Code);
+            $.ajax({
+                url: "/Category/Create",
+                data: JSON.stringify(ref_CategoryViewModel),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log("success");
+                    location.reload();
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
+
+            });
+
+         })
+        //----------Selec-Row----------//
+
+        var table = document.getElementById("Category_Table"), rIndex;
+        for (var i = 0; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                rIndex = this.rowIndex;
+                console.log("Index of table :" + rIndex)
+                var id = this.cells[0].innerHTML;
+                $("#code").val(this.cells[1].innerHTML);
+                $("#title").val(this.cells[2].innerHTML);
+            }
+        }
+        //----------Edit-----------//
+        $("#btnEdit").click(function () {
+            var grid = document.getElementById("Category_Table");
+            var selectedRow = [grid];
+            var ref_CategoryViewModel = {};
+            ref_CategoryViewModel.Id = selectedRow.Id;
+            ref_CategoryViewModel.Code = $("#code").val();
+            ref_CategoryViewModel.Name = $("#name").val();
+            $.post("/Category/Create", { ref_CategoryViewModel: ref_CategoryViewModel }, function (data) {
+                if (data != null) {
+                    alert("Edit was done!");
+                    location.reload();
+                }
+                else {
+                    alert("Error");
+                }
+            });
+        })
+
+
+
+
+
+
+
+
+        //--------Delete-------//
+
+        $("#btnDelete").click(function () {
+
+            var index, table = document.getElementById('Category_Table');
+            for (var i = 1; i < table.rows.length; i++) {
+                table.rows[i].onclick = function () {
+                    var c = confirm("do you want to delete this row");
+                    if (c === true) {
+                        index = this.parentElement.rowIndex;
+                        table.deleteRow(index);
                     }
-           
-                });
 
+                    console.log(index);
+                };
 
+            }
 
-            })
-        
-
-            
-
-
+        })
 
 
 
 
+    
 
 
 
-
-
-
-
+            //var grid = $("#Category_Table").data("kendoGrid");
+            //var selectedRow = grid.dataItem(grid.select());
+            //var ref_Category = {};
+            //ref_CategoryViewModel.Id = selectedRow.Id;
+            //ref_CategoryViewModel.Code = $("#code").val();
+            //ref_CategoryViewModel.Name = $("#name").val();
+            //$.post("/Category/Delete", { ref_CategoryViewModel: ref_CategoryViewModel }, function (data) {
+            //    if (data != null) {
+            //        alert("Delete was done!");
+            //        location.reload();
+            //    }
+            //    else {
+            //        alert("Error");
+            //    }
+            //});
     </script>
 
 
