@@ -58,7 +58,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white " })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.Code, new { id = "code", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.TextBoxFor(model => model.Code, new { id = "code", maxlength = "30", HtmlAttribute = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
                         </div>
 
@@ -67,7 +67,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white " })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.Title, new { id = "title", HtmlAttribute = new { @class = "form-control" } })
+                            @Html.TextBoxFor(model => model.Title, new { id = "title", maxlength = "30", HtmlAttribute = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                         </div>
 
@@ -127,7 +127,7 @@
     @*_______________________________JavaScript___________________________________*@
     <script type="text/javascript">
 
-
+        
 
         //-------------Save------------//
 
@@ -143,7 +143,8 @@
                 dataType: "json",
                 success: function (result) {
                     console.log("success");
-                    location.reload();
+                    //location.reload();
+                    
                 },
                 error: function (errormessage) {
                     console.log(errormessage.responseText);
@@ -160,29 +161,33 @@
                 rIndex = this.rowIndex;
                 console.log("Index of table :" + rIndex)
                 var id = this.cells[0].innerHTML;
-                $("#code").val(this.cells[1].innerHTML);
-                $("#title").val(this.cells[2].innerHTML);
+                $("#code").val(this.cells[1].innerHTML.trim());
+                $("#title").val(this.cells[2].innerHTML.trim());
             }
         }
         //----------Edit-----------//
         $("#btnEdit").click(function () {
-            var grid = document.getElementById("Category_Table");
-            var selectedRow = [grid];
             var ref_CategoryViewModel = {};
-            ref_CategoryViewModel.Id = selectedRow.Id;
+            ref_CategoryViewModel.Id = table.rows[rIndex].cells[0].innerHTML;
             ref_CategoryViewModel.Code = $("#code").val();
-            ref_CategoryViewModel.Name = $("#name").val();
-            $.post("/Category/Create", { ref_CategoryViewModel: ref_CategoryViewModel }, function (data) {
-                if (data != null) {
-                    alert("Edit was done!");
+            ref_CategoryViewModel.Title = $("#title").val();
+            $.ajax({
+                url: "/Category/Edit",
+                data: JSON.stringify(ref_CategoryViewModel),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log("success");
                     location.reload();
+                    RefreshTable();
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
                 }
-                else {
-                    alert("Error");
-                }
+
             });
         })
-
 
 
 
@@ -194,22 +199,34 @@
 
         $("#btnDelete").click(function () {
 
-            var index, table = document.getElementById('Category_Table');
-            for (var i = 1; i < table.rows.length; i++) {
-                table.rows[i].onclick = function () {
-                    var c = confirm("do you want to delete this row");
-                    if (c === true) {
-                        index = this.parentElement.rowIndex;
-                        table.deleteRow(index);
-                    }
+            var ref_CategoryViewModel = {};
+            ref_CategoryViewModel.Id = table.rows[rIndex].cells[0].innerHTML;
+            $.ajax({
+                url: "/Category/Delete",
+                data: JSON.stringify(ref_CategoryViewModel),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log("success");
+                    location.reload();
+                    RefreshTable();
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
 
-                    console.log(index);
-                };
+            });
 
-            }
 
         })
+        //---------Refresh---------//
 
+        $("#btnRefresh").click(function () {
+          location.reload();
+            
+
+        })
 
 
 
@@ -217,21 +234,6 @@
 
 
 
-            //var grid = $("#Category_Table").data("kendoGrid");
-            //var selectedRow = grid.dataItem(grid.select());
-            //var ref_Category = {};
-            //ref_CategoryViewModel.Id = selectedRow.Id;
-            //ref_CategoryViewModel.Code = $("#code").val();
-            //ref_CategoryViewModel.Name = $("#name").val();
-            //$.post("/Category/Delete", { ref_CategoryViewModel: ref_CategoryViewModel }, function (data) {
-            //    if (data != null) {
-            //        alert("Delete was done!");
-            //        location.reload();
-            //    }
-            //    else {
-            //        alert("Error");
-            //    }
-            //});
     </script>
 
 

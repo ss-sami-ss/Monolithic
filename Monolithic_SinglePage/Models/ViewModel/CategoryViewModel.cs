@@ -80,8 +80,9 @@ namespace Monolithic_SinglePage.Models.ViewModel
         #endregion
 
         #region [- Delete_Category(int? id) -]
-        public void Delete_Category(int? id)
+        public void Delete_Category(CategoryViewModel ref_CategoryViewModel)
         {
+            var id = ref_CategoryViewModel.Id;
             Ref_CategoryRepository.Delete(id);
         } 
         #endregion

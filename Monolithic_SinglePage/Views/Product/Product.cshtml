@@ -66,14 +66,25 @@
 
                     </div>
 
+
+
+
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.CategoryRef, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.CategoryRef, new { id = "categoryref", HtmlAttribute = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CategoryRef, "", new { @class = "text-danger" })
+                        <div class="col-md-10">                               
+                               @Html.TextBoxFor(model => model.CategoryRef, new { id = "categoryref", HtmlAttribute = new { @class = "form-control" } })
+                               @Html.ValidationMessageFor(model => model.CategoryRef, "", new { @class = "text-danger" })
                         </div>
 
                     </div>
+
+
+
+
+
+
+
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "p-2 mb-1 bg-secondary text-white" })
@@ -97,12 +108,11 @@
                 </div>
             }
 
-            <table class="table">
+        <table id="Product_Table" class="table table-striped table-dark" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+            <thead>
                 <tr>
-                    <th>
-                        <input type="checkbox" disabled="disabled" name="Product_Table" value="Device">
-                    </th>
-                    <th>
+
+                    <th style="display:none;">
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
@@ -120,39 +130,37 @@
                     <th>
                         @Html.DisplayNameFor(model => model.UnitPrice)
                     </th>
-                    <th></th>
+
                 </tr>
+            </thead>
+            @foreach (var item in Model.Get_Product())
+            {
 
-                @foreach (var item in Model.Get_Product())
-                {
-                    <tr>
-                        <td>
-                            <input type="checkbox" value="select">
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Code)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CategoryRef)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UnitPrice)
-                        </td>
+                <tr>
 
+                    <td style="display:none;">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryRef)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
 
-                    </tr>
-                }
+                </tr>
+            }
 
-            </table>
+        </table>
 
 
 
@@ -165,44 +173,119 @@
         @*_______________________________JavaScript___________________________________*@
 
         <script type="text/javascript">
-            $("#btnSave").click(function () {
-                ref_ProductViewModel = {
-                    Code: $("#code"), Title: $("#title"),
-                    CategoryRef: $("#categoryref"), Quantity: $("#quantity"),
-                    UnitPrice: $("#unitprice"),
-                };
 
+            //-------------Save------------//
+
+
+            $("#btnSave").click(function () {
+                let ref_ProductViewModel = {
+                    Code: $('#code').val(), Title: $('#title').val(), CategoryRef: $("#categoryref").val(), Quantity: $("#quantity").val(),
+                    UnitPrice: $("#unitprice").val()
+                };
+                console.log("Code" + ref_ProductViewModel.Code);
                 $.ajax({
-                    url: "Product/Product",
+                    url: "/Product/Create",
                     data: JSON.stringify(ref_ProductViewModel),
                     type: "POST",
-                    contentType: "json"
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log("success");
+                        location.reload();
+
+                    },
+                    error: function (errormessage) {
+                        console.log(errormessage.responseText);
+                    }
+
+                });
+
+            })
+
+                    //----------Selec-Row----------//
+
+            var table = document.getElementById("Product_Table"), rIndex;
+            for (var i = 0; i < table.rows.length; i++) {
+                table.rows[i].onclick = function () {
+                    rIndex = this.rowIndex;
+                    console.log("Index of table :" + rIndex)
+                    var id = this.cells[0].innerHTML;
+                    $("#code").val(this.cells[1].innerHTML.trim());
+                    $("#title").val(this.cells[2].innerHTML.trim());
+                    $("#categoryref").val(this.cells[3].innerHTML.trim());
+                    $("#quantity").val(this.cells[4].innerHTML.trim());
+                    $("#unitprice").val(this.cells[5].innerHTML.trim());
+                }
+            }
+
+            //----------Edit-----------//
+            $("#btnEdit").click(function () {
+                var ref_ProductViewModel = {};
+                ref_ProductViewModel.Id = table.rows[rIndex].cells[0].innerHTML;
+                ref_ProductViewModel.Code = $("#code").val();
+                ref_ProductViewModel.Title = $("#title").val();
+                ref_ProductViewModel.CategoryRef = $("#categoryref").val();
+                ref_ProductViewModel.Quantity = $("#quantity").val();
+                ref_ProductViewModel.UnitPrice = $("#unitprice").val();
+                $.ajax({
+                    url: "/Product/Edit",
+                    data: JSON.stringify(ref_ProductViewModel),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log("success");
+                        location.reload();
+
+                    },
+                    error: function (errormessage) {
+                        console.log(errormessage.responseText);
+                    }
+
+                });
+            })
+
+            $("#btnDelete").click(function () {
+
+                var ref_CategoryViewModel = {};
+                ref_ProductViewModel.Id = table.rows[rIndex].cells[0].innerHTML;
+                $.ajax({
+                    url: "/Product/Delete",
+                    data: JSON.stringify(ref_ProductViewModel),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log("success");
+                        location.reload();
+
+                    },
+                    error: function (errormessage) {
+                        console.log(errormessage.responseText);
+                    }
+
+                });
 
 
-                })
+            })
+            //---------Refresh---------//
+
+            $("#btnRefresh").click(function () {
+                 location.reload();
 
 
             })
 
-            //--------------------DropDown-----------------//
-            var obj, dbParam, xmlhttp, myObj, x, txt = "";
-            obj = { table: "Category_Table", limit: 20 };
-            dbParam = JSON.stringify(obj);
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    myObj = JSON.parse(this.responseText);
-                    txt += "<select>"
-                    for (x in myObj) {
-                        txt += "<option>" + myObj[x].name;
-                    }
-                    txt += "</select>"
-                    document.getElementById("demo").innerHTML = txt;
-                }
-            };
-            xmlhttp.open("POST", "json_demo_html_table.php", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("x=" + dbParam);
+
+
+
+
+
+
+
+
+
+
 
 
 

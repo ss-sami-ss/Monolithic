@@ -46,5 +46,45 @@ namespace Monolithic_SinglePage.Controllers
             }
         }
         #endregion
+
+        #region [- Edit -]
+        [HttpPost]
+        // [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        //[Route("Edit")]
+        public ActionResult Edit(ProductViewModel ref_ProductViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ref_ProductViewModel.Put_Prodcut(ref_ProductViewModel);
+                return Json(new { Message = "Success" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json(new { ModelState_IsValid = "False", JsonRequestBehavior.AllowGet });
+            }
+        }
+        #endregion
+
+        #region [- Delete -]
+        [HttpPost]
+        // [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        // [Route("Delete")]
+        public ActionResult Delete(ProductViewModel ref_ProductViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ref_ProductViewModel.Delete_Product(ref_ProductViewModel);
+                return Json(new { Message = "Success" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Json(new { ModelState_IsValid = "False", JsonRequestBehavior.AllowGet });
+            }
+        }
+        #endregion
     }
 }

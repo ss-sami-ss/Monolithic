@@ -92,8 +92,9 @@ namespace Monolithic_SinglePage.Models.ViewModel
         #endregion
 
         #region [- Delete_Product(int? id) -]
-        public void Delete_Product(int? id)
+        public void Delete_Product(ProductViewModel ref_ProductViewModel)
         {
+            var id = ref_ProductViewModel.Id;
             Ref_ProductRepository.Delete(id);
         }
         #endregion
